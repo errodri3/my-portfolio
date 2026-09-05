@@ -26,12 +26,12 @@ function Taskbar({ openWindow, openWindows, minimizedWindows, restoreWindow }) {
   const apps = [
     { id: 'about', label: 'about me', icon: '📄' },
     { id: 'experience', label: 'experience', icon: '💼' },
-    { id: 'projects', label: 'projects', icon: '🗂️' },
     { id: 'music', label: 'music player', icon: '🎵' },
     { id: 'anime', label: 'anime list', icon: '📺' },
     { id: 'movies', label: 'movie list', icon: '🎬' },
     { id: 'mtg', label: 'mtg tracker', icon: '🃏' },
     { id: 'contact', label: 'contact', icon: '✉️' },
+    { id: 'explorer', label: 'Eve Explorer', icon: '📁' },
   ]
 
   const filteredApps = apps.filter(app =>
@@ -140,6 +140,20 @@ function Taskbar({ openWindow, openWindows, minimizedWindows, restoreWindow }) {
             onMouseLeave={e => e.currentTarget.style.background = startOpen ? 'rgba(255,255,255,0.5)' : 'transparent'}
           >
             ⊞
+          </div>
+
+          <div
+            onClick={() => openWindow({ id: 'explorer', label: 'Eve Explorer', icon: '📁' })}
+            style={{
+              width: '36px', height: '36px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              borderRadius: '8px', cursor: 'pointer', fontSize: '20px',
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+            title="Eve Explorer"
+          >
+            📁
           </div>
 
           <div style={{ position: 'relative' }}>

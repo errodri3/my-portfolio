@@ -1,24 +1,17 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Taskbar from './Taskbar'
-import Window from './Window'
-import Experience from '../apps/Experience'
+import Taskbar from '../Taskbar/Taskbar'
+import Window from '../Window/Window'
+import Experience from '../Experience/Experience'
+import EveExplorer from '../EveExplorer/EveExplorer'
+import { desktopApps } from '../../data/apps'
 
 function Desktop() {
   const [showInfo, setShowInfo] = useState(true)
-  const [openWindows, setOpenWindows] = useState([])
+  const [openWindows, setOpenWindows] = useState([
+    { id: 'explorer', label: 'Eve Explorer', icon: '📁' }
+  ])
   const [minimizedWindows, setMinimizedWindows] = useState([])
-
-  const desktopApps = [
-    { id: 'about', label: 'about me', icon: '📄' },
-    { id: 'experience', label: 'experience', icon: '💼' },
-    { id: 'projects', label: 'projects', icon: '🗂️' },
-    { id: 'music', label: 'music player', icon: '🎵' },
-    { id: 'anime', label: 'anime list', icon: '📺' },
-    { id: 'movies', label: 'movie list', icon: '🎬' },
-    { id: 'mtg', label: 'mtg tracker', icon: '🃏' },
-    { id: 'contact', label: 'contact', icon: '✉️' },
-  ]
 
   const openWindow = (app) => {
     if (minimizedWindows.find(w => w.id === app.id)) {
@@ -36,7 +29,9 @@ function Desktop() {
   }
 
   const minimizeWindow = (app) => {
-    setMinimizedWindows([...minimizedWindows, app])
+    if (!minimizedWindows.find(w => w.id === app.id)) {
+      setMinimizedWindows([...minimizedWindows, app])
+    }
   }
 
   const restoreWindow = (app) => {
@@ -44,6 +39,20 @@ function Desktop() {
   }
 
   const isMinimized = (id) => minimizedWindows.some(w => w.id === id)
+
+  const renderAppContent = (id) => {
+    switch (id) {
+      case 'experience': return <Experience />
+      case 'explorer': return <EveExplorer />
+      default: return (
+        <div style={{ fontSize: '13px', color: '#4a6a90', padding: '1rem', textAlign: 'center' }}>
+          <div style={{ fontSize: '32px', marginBottom: '8px' }}>🚧</div>
+          <div style={{ fontWeight: '600' }}>coming soon</div>
+          <div style={{ opacity: 0.6, fontSize: '12px', marginTop: '4px' }}>this app is still being built</div>
+        </div>
+      )
+    }
+  }
 
   return (
     <motion.div
@@ -71,25 +80,17 @@ function Desktop() {
             key={app.id}
             onDoubleClick={() => openWindow(app)}
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '4px',
-              padding: '6px',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              width: '72px',
+              display: 'flex', flexDirection: 'column', alignItems: 'center',
+              gap: '4px', padding: '6px', borderRadius: '6px',
+              cursor: 'pointer', width: '72px',
             }}
             onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.25)'}
             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
           >
             <span style={{ fontSize: '32px' }}>{app.icon}</span>
             <span style={{
-              fontSize: '11px',
-              fontWeight: '600',
-              color: '#fff',
-              textAlign: 'center',
-              textShadow: '0 1px 4px rgba(80,120,180,0.8)',
+              fontSize: '11px', fontWeight: '600', color: '#fff',
+              textAlign: 'center', textShadow: '0 1px 4px rgba(80,120,180,0.8)',
               lineHeight: '1.3',
             }}>
               {app.label}
@@ -102,6 +103,7 @@ function Desktop() {
         {showInfo && (
           <Window
             title="info.txt"
+            icon="📄"
             onClose={() => setShowInfo(false)}
             onMinimize={() => setShowInfo(false)}
             defaultX={120}
@@ -109,25 +111,28 @@ function Desktop() {
           >
             <div style={{ fontSize: '13px', color: '#4a6a90', lineHeight: '1.7' }}>
               <p style={{ fontWeight: '700', fontSize: '15px', marginBottom: '0.5rem' }}>
-                WELCOME TO EVE OS ✦
+                welcome to eve's os ✦
               </p>
               <p style={{ marginBottom: '0.75rem', opacity: 0.8 }}>
-                A desktop simulation.
+                this is the interactive portfolio of Evelyn Rodriguez —
+                HCI student, developer, and UI/UX designer.
               </p>
-              <p style={{ fontWeight: '600', marginBottom: '0.25rem' }}>Other Applications</p>
+              <p style={{ fontWeight: '600', marginBottom: '0.25rem' }}>what you'll find here:</p>
               <ul style={{ paddingLeft: '1rem', marginBottom: '0.75rem', opacity: 0.8 }}>
-                <li>Music Player</li>
-                  <ul>
-                    <li> All music data, album art, and music metadata are fetched from the Spotify Web API and Youtube Data API v3.</li>
-                  </ul>
-                <li>My Anime List</li>
-                <li>My Movie List</li>
-                <li>MTG Tracker</li>
+                <li>my experience & skills</li>
+                <li>projects i've built</li>
+                <li>music player</li>
+                <li>anime & movie lists</li>
+                <li>MTG collection tracker</li>
+                <li>a way to contact me</li>
               </ul>
               <p style={{
-                fontSize: '12px',
+                background: 'rgba(200,160,240,0.15)',
+                border: '1px solid rgba(200,160,240,0.3)',
+                borderRadius: '8px', padding: '8px 10px', fontSize: '12px',
               }}>
-                🚧 this portfolio is currently under construction. Check back soon! :p
+                🚧 this portfolio is currently under construction.
+                many features are still being built — check back soon!
               </p>
             </div>
           </Window>
@@ -138,18 +143,14 @@ function Desktop() {
             <Window
               key={w.id}
               title={w.label}
+              icon={w.icon}
               onClose={() => closeWindow(w.id)}
               onMinimize={() => minimizeWindow(w)}
-              defaultX={120}
+              defaultX={140}
               defaultY={80}
+              width={w.id === 'explorer' ? 560 : 380}
             >
-              {w.id === 'experience' ? (
-                <Experience />
-              ) : (
-                <div style={{ fontSize: '13px', color: '#4a6a90', padding: '1rem' }}>
-                  🚧 {w.label} is coming soon!
-                </div>
-              )}
+              {renderAppContent(w.id)}
             </Window>
           )
         ))}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import LockScreen from './components/os/LockScreen'
-import Desktop from './components/os/Desktop'
+import LockScreen from './components/LockScreen/LockScreen'
+import Desktop from './components/Desktop/Desktop'
 
 function App() {
   const [unlocked, setUnlocked] = useState(false)
