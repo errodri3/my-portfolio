@@ -109,30 +109,25 @@ function Desktop() {
           >
             <div style={{ fontSize: '13px', color: '#4a6a90', lineHeight: '1.7' }}>
               <p style={{ fontWeight: '700', fontSize: '15px', marginBottom: '0.5rem' }}>
-                welcome to eve's os ✦
+                WELCOME TO EVE OS ✦
               </p>
               <p style={{ marginBottom: '0.75rem', opacity: 0.8 }}>
-                this is the interactive portfolio of Evelyn Rodriguez —
-                HCI student, developer, and UI/UX designer.
+                A desktop simulation.
               </p>
-              <p style={{ fontWeight: '600', marginBottom: '0.25rem' }}>what you'll find here:</p>
+              <p style={{ fontWeight: '600', marginBottom: '0.25rem' }}>Other Applications</p>
               <ul style={{ paddingLeft: '1rem', marginBottom: '0.75rem', opacity: 0.8 }}>
-                <li>my experience & skills</li>
-                <li>projects i've built</li>
-                <li>music player</li>
-                <li>anime & movie lists</li>
-                <li>MTG collection tracker</li>
-                <li>a way to contact me</li>
+                <li>Music Player</li>
+                  <ul>
+                    <li> All music data, album art, and music metadata are fetched from the Spotify Web API and Youtube Data API v3.</li>
+                  </ul>
+                <li>My Anime List</li>
+                <li>My Movie List</li>
+                <li>MTG Tracker</li>
               </ul>
               <p style={{
-                background: 'rgba(200,160,240,0.15)',
-                border: '1px solid rgba(200,160,240,0.3)',
-                borderRadius: '8px',
-                padding: '8px 10px',
                 fontSize: '12px',
               }}>
-                🚧 this portfolio is currently under construction.
-                many features are still being built — check back soon!
+                🚧 this portfolio is currently under construction. Check back soon! :p
               </p>
             </div>
           </Window>

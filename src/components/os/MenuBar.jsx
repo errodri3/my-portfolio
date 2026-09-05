@@ -35,7 +35,7 @@ function MenuBar() {
       position: 'relative',
       zIndex: 100,
     }}>
-      <span>✦ eve's os</span>
+      <span>✦ EVE OS</span>
       <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
         <span>🔊</span>
         <span>📶</span>
